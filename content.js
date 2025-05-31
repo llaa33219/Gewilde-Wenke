@@ -315,12 +315,25 @@ async function main() {
                         existingHeader.remove();
                     }
 
+                    // Clean up existing general tips header if exists
+                    const existingGeneralHeader = document.querySelector('div[data-playentry-general-tips-header="true"]');
+                    if (existingGeneralHeader) {
+                        existingGeneralHeader.remove();
+                    }
+
                     // Add identifier to header
                     headerDiv.setAttribute('data-playentry-hot-tips-header', 'true');
+
+                    // Create general tips header
+                    const generalHeaderDiv = document.createElement('div');
+                    generalHeaderDiv.className = 'playentry-hot-tips-header';
+                    generalHeaderDiv.textContent = '일반 노하우&팁';
+                    generalHeaderDiv.setAttribute('data-playentry-general-tips-header', 'true');
 
                     // Insert before target element
                     targetElement.parentNode.insertBefore(headerDiv, targetElement);
                     targetElement.parentNode.insertBefore(listContainer, targetElement);
+                    targetElement.parentNode.insertBefore(generalHeaderDiv, targetElement);
 
                     console.log("Extension applied: Hot tips displayed with proper content parsing and image extraction.");
                     isProcessing = false;
@@ -361,10 +374,7 @@ function shouldApplyExtension() {
             return false;
         }
         
-        // sort=created 파라미터만 확인
-        const hasSort = searchParams.get('sort') === 'created';
-        
-        return hasSort;
+        return true;
     } catch (error) {
         // URL 파싱 실패시 기존 방식으로 폴백
         console.warn("URL parsing failed, using fallback method:", error);
@@ -372,7 +382,7 @@ function shouldApplyExtension() {
         if (url.includes('query=')) {
             return false;
         }
-        return url.includes('sort=created');
+        return true;
     }
 }
 
