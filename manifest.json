@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "엔트리-인기노팁",
+  "version": "1.0",
+  "description": "엔트리에서 인기 노하우&팁을 표기해줍니다.",
+  "host_permissions": [
+    "https://playentry.org/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://playentry.org/*"],
+      "css": ["style.css"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_title": "엔트리-인기노팁"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+} 
